@@ -30,13 +30,14 @@ export function createDust(scene: THREE.Scene): DustSystem {
   );
 
   const dustMaterial = new THREE.PointsMaterial({
-    color: 0x93c5fd,
-    size: 0.035,
-    transparent: true,
-    opacity: 0.6,
-    blending: THREE.AdditiveBlending,
-    depthWrite: false,
-  });
+  color: 0x93c5fd,
+  size: 0.015,          // was 0.035
+  transparent: true,
+  opacity: 0.25,        // was 0.6
+  blending: THREE.AdditiveBlending,
+  depthWrite: false,
+});
+
 
   const dust = new THREE.Points(dustGeometry, dustMaterial);
   dustGroup.add(dust);

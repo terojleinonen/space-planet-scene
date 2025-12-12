@@ -87,7 +87,7 @@ export function createStars(scene: THREE.Scene): StarSystem {
       colors[idx * 3 + 1] = c.g;
       colors[idx * 3 + 2] = c.b;
 
-      sizes[idx] = THREE.MathUtils.randFloat(6.0, 22.0);
+      sizes[idx] = THREE.MathUtils.randFloat(2.0, 10.0);
       intensities[idx] = THREE.MathUtils.randFloat(0.5, 1.4);
 
       used++;
@@ -115,9 +115,9 @@ export function createStars(scene: THREE.Scene): StarSystem {
     return { points, geometry };
   }
 
-  const nearLayer = generateLayer(900, 4, 10);
-  const midLayer = generateLayer(2000, 15, 60);
-  const farLayer = generateLayer(4000, 80, 260);
+  const nearLayer = generateLayer(300, 6, 14);
+  const midLayer = generateLayer(800, 25, 80);
+  const farLayer = generateLayer(1200, 120, 320);
 
   group.add(nearLayer.points);
   group.add(midLayer.points);

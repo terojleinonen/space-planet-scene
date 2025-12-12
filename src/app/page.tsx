@@ -1,5 +1,5 @@
 // src/app/page.tsx
-import PlanetScene from "./components/PlanetScene";
+import PlanetScene from "./components/PlanetScene/PlanetScene";
 
 export default function HomePage() {
   return (

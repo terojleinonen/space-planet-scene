@@ -16,7 +16,7 @@ import { createPlanets } from "./systems/createPlanets";
 import { createNebula } from "./systems/createNebula";
 import { createStars } from "./systems/createStars";
 import { createDust } from "./systems/createDust";
-import { createHyperjumpController } from "./systems/hyperjump";
+//import { createHyperjumpController } from "./systems/hyperjump";
 import { createCameraFlyController } from "./systems/cameraFly";
 
 export default function PlanetScene() {
@@ -109,12 +109,12 @@ export default function PlanetScene() {
     const nebula = createNebula(scene);
 
     // Hyperjump controller (creates tunnel + flash)
-    const hyperjump = createHyperjumpController({
+    /*const hyperjump = createHyperjumpController({
       scene,
       camera,
       solarSystem,
       starfieldGroup: stars.group,
-    });
+    });*/
 
     // Camera fly-through controller
     const cameraFly = createCameraFlyController({
@@ -139,7 +139,7 @@ export default function PlanetScene() {
       dust.update(t);
       nebula.update(t, camera);
       cameraFly.update(t);
-      hyperjump.update(t); // now smooth & less jumpy
+      //hyperjump.update(t); // now smooth & less jumpy
 
       composer.render();
       animationRef.current = requestAnimationFrame(animate);
@@ -171,7 +171,7 @@ export default function PlanetScene() {
       stars.dispose();
       dust.dispose();
       nebula.dispose();
-      hyperjump.dispose();
+      //hyperjump.dispose();
     };
   }, []);
 
