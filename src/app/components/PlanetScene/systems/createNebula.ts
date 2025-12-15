@@ -22,14 +22,13 @@ export function createNebula(scene: THREE.Scene): NebulaSystem {
   };
 
   const nebulaMat = new THREE.ShaderMaterial({
-    uniforms,
     vertexShader: nebulaVertexShader,
     fragmentShader: nebulaFragmentShader,
+    uniforms,
+    lights: false,
     transparent: true,
-    depthWrite: false,
     side: THREE.BackSide,
-    blending: THREE.AdditiveBlending,
-  });
+});
 
   const mesh = new THREE.Mesh(nebulaGeo, nebulaMat);
   mesh.position.set(0, 0, -5);

@@ -16,7 +16,6 @@ import { createPlanets } from "./systems/createPlanets";
 import { createNebula } from "./systems/createNebula";
 import { createStars } from "./systems/createStars";
 import { createDust } from "./systems/createDust";
-//import { createHyperjumpController } from "./systems/hyperjump";
 import { createCameraFlyController } from "./systems/cameraFly";
 
 export default function PlanetScene() {
@@ -43,6 +42,8 @@ export default function PlanetScene() {
       antialias: true,
       alpha: true,
     });
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     renderer.setSize(width, height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -93,9 +94,18 @@ export default function PlanetScene() {
     composer.addPass(effectPass);
 
     // Lights
-    scene.add(new THREE.AmbientLight(0x6688ff, 0.35));
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.1);
+    ambientLight.position.set(0, 0, 0);
+    scene.add(ambientLight);
+
     const sunLight = new THREE.PointLight(0xffffff, 2.5, 80);
     sunLight.position.set(0, 0, 0);
+    sunLight.castShadow = true;            // 👈 ADD
+    sunLight.shadow.mapSize.width = 2048;  // higher res shadow
+    sunLight.shadow.mapSize.height = 2048;
+    sunLight.shadow.bias = -0.0005;        // avoids shadow acne
+    sunLight.shadow.camera.near = 0.1;
+    sunLight.shadow.camera.far = 100;
     scene.add(sunLight);
 
     // Solar system root
@@ -107,14 +117,6 @@ export default function PlanetScene() {
     const stars = createStars(scene);
     const dust = createDust(scene);
     const nebula = createNebula(scene);
-
-    // Hyperjump controller (creates tunnel + flash)
-    /*const hyperjump = createHyperjumpController({
-      scene,
-      camera,
-      solarSystem,
-      starfieldGroup: stars.group,
-    });*/
 
     // Camera fly-through controller
     const cameraFly = createCameraFlyController({
@@ -139,7 +141,6 @@ export default function PlanetScene() {
       dust.update(t);
       nebula.update(t, camera);
       cameraFly.update(t);
-      //hyperjump.update(t); // now smooth & less jumpy
 
       composer.render();
       animationRef.current = requestAnimationFrame(animate);
@@ -171,7 +172,6 @@ export default function PlanetScene() {
       stars.dispose();
       dust.dispose();
       nebula.dispose();
-      //hyperjump.dispose();
     };
   }, []);
 

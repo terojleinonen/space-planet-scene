@@ -38,14 +38,14 @@ export function createStars(scene: THREE.Scene): StarSystem {
   };
 
   const material = new THREE.ShaderMaterial({
-    uniforms: starUniforms,
-    vertexShader: starVertexShader,
-    fragmentShader: starFragmentShader,
-    transparent: true,
-    depthWrite: false,
-    blending: THREE.AdditiveBlending,
-    vertexColors: true,
-  });
+  uniforms: starUniforms,
+  vertexShader: starVertexShader,
+  fragmentShader: starFragmentShader,
+  transparent: true,
+  depthWrite: false,
+  blending: THREE.AdditiveBlending,
+  lights: false,     
+  }); 
 
   const group = new THREE.Group();
   scene.add(group);
